@@ -1,1 +1,63 @@
+public class Main {
 
+public static void main(String[] args) {
+TablePrint studentRollNumberTable = new TablePrint("Student Roll Number", 1);
+TablePrint dobTable = new TablePrint("Date of Birth", 2);
+studentRollNumberTable.setPriority(Thread.MIN_PRIORITY);
+dobTable.setPriority(Thread.MAX_PRIORITY);
+
+studentRollNumberTable.start();
+dobTable.start();
+}
+}
+
+class TablePrint extends Thread {
+private String tableType;
+private int taskType;
+
+public TablePrint(String tableType, int taskType) {
+this.tableType = tableType;
+this.taskType = taskType;
+}
+
+@Override
+public void run() {
+
+if (taskType == 1) {
+printRollNumberTable();
+} else if (taskType == 2) {
+printDOBTable();
+}
+}
+
+private void printRollNumberTable() {
+System.out.println("Table for Student Roll Numbers:");
+String[] rollNumbers = {
+"2019-SE-092", "2019-SE-093", "2019-SE-094", "2019-SE-095", "2019-SE-096"
+};
+
+for (String rollNumber : rollNumbers) {
+System.out.println(rollNumber);
+try {
+Thread.sleep(500);
+} catch (InterruptedException e) {
+e.printStackTrace();
+}
+}
+}
+private void printDOBTable() {
+System.out.println("Table for Date of Births:");
+String[] dob = {
+"05-April", "06-April", "07-April", "08-April", "09-April"
+};
+
+for (String dateOfBirth : dob) {
+System.out.println(dateOfBirth);
+try {
+Thread.sleep(500); // Simulate delay for printing
+} catch (InterruptedException e) {
+e.printStackTrace();
+}
+}
+}
+}
